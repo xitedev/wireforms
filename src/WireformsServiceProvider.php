@@ -5,6 +5,7 @@ namespace Xite\Wireforms;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Xite\Wireforms\Commands\FormMakeCommand;
 
 class WireformsServiceProvider extends PackageServiceProvider
 {
@@ -12,8 +13,10 @@ class WireformsServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('wireforms')
-            ->hasViews()
-            ->hasTranslations();
+            ->hasConfigFile()
+            ->hasTranslations()
+            ->hasCommand(FormMakeCommand::class)
+            ->hasViews();
     }
 
     public function packageBooted(): void

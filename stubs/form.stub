@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use Illuminate\Support\Collection;
+use Xite\Wireforms\Form;
+
+class {{ class }} extends Form
+{
+    public {{ model }}|int $model;
+
+    public function mount({{ model }}): void
+    {
+        $this->model = $model;
+    }
+
+    public function title(): string
+    {
+//
+    }
+
+    protected function fields(): Collection
+    {
+        return collect([
+//
+        ]);
+    }
+}

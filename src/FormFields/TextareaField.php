@@ -12,7 +12,7 @@ class TextareaField extends FormField
 
     private ?int $rows = 2;
 
-    public function rows(int $rows): self
+    public function rows(int $rows = 2): self
     {
         $this->rows = $rows;
 

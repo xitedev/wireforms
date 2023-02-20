@@ -7,7 +7,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Validator;
 use LivewireUI\Modal\ModalComponent;
-use RuntimeException;
 use Xite\Wireforms\Contracts\FormFieldContract;
 use Xite\Wireforms\Traits\HasChild;
 use Xite\Wireforms\Traits\HasDefaults;
@@ -112,27 +111,24 @@ abstract class Form extends ModalComponent
 
             $this->afterSave();
 
-            $this->dispatchBrowserEvent('alert', [
-                'status' => 'success',
+            $this->dispatchBrowserEvent('notify', [
+                'type' => 'success',
                 'message' => __('wireforms::form.successfully_saved'),
             ]);
 
             if (! is_null($this->parentModal)) {
                 $this->closeModalWithEvents([
-                    [
-                        'fillParent.' . $this->parentModal, [ $this->model->getKey() ],
-                    ],
+                    ['fillParent.' . $this->parentModal, [$this->model->getKey()]],
                 ]);
             } else {
                 $this->closeModalWithEvents([
                     '$refresh',
                 ]);
             }
-        } catch (RuntimeException $exception) {
-            $this->dispatchBrowserEvent('alert', [
-                'status' => 'error',
-                'message' => __('wireforms::form.unable_to_save'),
-                'description' => $exception->getMessage(),
+        } catch (\Throwable $exception) {
+            $this->dispatchBrowserEvent('notify', [
+                'type' => 'error',
+                'message' => $exception->getMessage()
             ]);
         }
     }

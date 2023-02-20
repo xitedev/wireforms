@@ -160,6 +160,17 @@ abstract class FormField implements FormFieldContract
 
         return $this;
     }
+    private function colSpan(): string
+    {
+        return match ($this->size) {
+            1 => 'col-span-6 sm:col-span-1',
+            2 => 'col-span-6 sm:col-span-2',
+            3 => 'col-span-6 sm:col-span-3',
+            4 => 'col-span-6 sm:col-span-4',
+            5 => 'col-span-6 sm:col-span-5',
+            6 => 'col-span-6',
+        };
+    }
 
     protected function getClass(?Model $model = null): ?string
     {
@@ -170,7 +181,7 @@ abstract class FormField implements FormFieldContract
             )
             ->when(
                 $this->size,
-                fn ($class) => $class->push('col-span-6 sm:col-span-'.$this->size)
+                fn ($class) => $class->push($this->colSpan())
             )
             ->filter()
             ->flatten()
