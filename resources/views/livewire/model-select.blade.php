@@ -48,7 +48,7 @@
                                type="text"
                                name="search"
                                x-ref="search"
-                               class="block w-full p-1 border border-primary-100 text-gray-700 bg-primary-50/50 shadow-sm shadow-primary-100/50 outline-none"
+                               class="block w-full p-1 border border-primary-100 text-sm text-gray-700 bg-primary-50/50 shadow-sm shadow-primary-100/50 outline-none"
                                wire:model.debounce.1s="search"
                                placeholder="@lang('wireforms::form.search')"
                                autocomplete="false"

@@ -13,13 +13,13 @@
                     x-data="{ on: {{ $value ? 'true' : 'false' }} }"
                 @endif
                 :class="{ 'bg-gray-200': !on, 'bg-primary-500': on }"
-                @class(["relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-sm cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none bg-gray-200", $innerClass])
+                @class(["relative inline-flex flex-shrink-0 h-5 w-9 border-2 border-transparent rounded-sm cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none bg-gray-200", $innerClass])
                 {{ $attributes->whereStartsWith(['wire:change', 'x-']) }}
         >
             <span class="sr-only">{{ $label }}</span>
             <span aria-hidden="true"
-                  :class="{ 'translate-x-5': on, 'translate-x-0': !on }"
-                  class="inline-block h-5 w-5 rounded-sm bg-white shadow transform ring-0 transition ease-in-out duration-200 translate-x-0"
+                  :class="{ 'translate-x-4': on, 'translate-x-0': !on }"
+                  class="inline-block h-4 w-4 rounded-sm bg-white shadow transform ring-0 transition ease-in-out duration-200 translate-x-0"
             ></span>
         </button>
         <span id="toggleLabel">

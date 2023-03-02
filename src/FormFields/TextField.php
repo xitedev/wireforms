@@ -11,6 +11,7 @@ class TextField extends FormField
     use Translatable;
 
     public ?string $type = 'text';
+    public ?string $prepend = null;
 
     public function type(string $type): self
     {
@@ -27,6 +28,13 @@ class TextField extends FormField
         return $this;
     }
 
+    public function prepend(?string $prepend = null): self
+    {
+        $this->prepend = $prepend;
+
+        return $this;
+    }
+
     protected function render(): FieldContract
     {
         return Text::make(
@@ -38,7 +46,8 @@ class TextField extends FormField
             key: $this->key,
             placeholder: $this->placeholder,
             required: $this->required,
-            disabled: $this->disabled
+            disabled: $this->disabled,
+            prepend: $this->prepend
         );
     }
 }

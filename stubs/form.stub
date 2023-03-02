@@ -10,7 +10,7 @@ class {{ class }} extends Form
 {
     public {{ model }}|int $model;
 
-    public function mount({{ model }}): void
+    public function mount({{ model }} $model): void
     {
         $this->model = $model;
     }
