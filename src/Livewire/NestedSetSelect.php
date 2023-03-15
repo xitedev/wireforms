@@ -3,13 +3,12 @@
 namespace Xite\Wireforms\Livewire;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Xite\Searchable\Filters\SearchFilter;
 
 class NestedSetSelect extends ModelSelect
 {
-    public ?string $viewName = 'wireforms::livewire.nested-set-select';
-
     protected function selected()
     {
         if (is_null($this->value)) {
@@ -56,7 +55,7 @@ class NestedSetSelect extends ModelSelect
 
     public function getResultsProperty(): Collection
     {
-        if (! $this->isOpen || ! $this->showResults()) {
+        if (! $this->isOpen) {
             return collect();
         }
 
@@ -97,5 +96,10 @@ class NestedSetSelect extends ModelSelect
     public function isCurrent(string $key): bool
     {
         return $this->selected() && $key === $this->selectedValue;
+    }
+
+    public function render(): View
+    {
+        return view($this->viewName ?? 'wireforms::livewire.nested-set-select');
     }
 }

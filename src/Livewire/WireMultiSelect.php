@@ -3,6 +3,7 @@
 namespace Xite\Wireforms\Livewire;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Xite\Searchable\Filters\SearchFilter;
@@ -25,12 +26,12 @@ class WireMultiSelect extends ModelSelect
         ?int $limit = 20,
         bool $searchable = true,
         ?string $viewName = null,
-        string $model = null,
+        ?string $model = null,
         ?string $orderBy = null,
         ?string $orderDir = null,
-        string $createNewModel = null,
-        string $createNewField = null,
-        string $editModel = null,
+        ?string $createNewModel = null,
+        ?string $createNewField = null,
+        ?string $editModel = null,
         ?Collection $filters = null,
         ?array $values = [],
     ): void {
@@ -50,7 +51,10 @@ class WireMultiSelect extends ModelSelect
         $this->editModel = $editModel;
         $this->filters = $filters;
         $this->values = $values;
-        $this->viewName = $viewName ?? 'wireforms::livewire.multi-select';
+
+        if ($viewName) {
+            $this->viewName = $viewName;
+        }
     }
 
     protected function selected()
@@ -113,7 +117,7 @@ class WireMultiSelect extends ModelSelect
 
     public function getResultsProperty(): Collection
     {
-        if (! $this->isOpen || ! $this->showResults()) {
+        if (! $this->isOpen) {
             return collect();
         }
 
@@ -136,5 +140,10 @@ class WireMultiSelect extends ModelSelect
     public function isCurrent(string $key): bool
     {
         return $this->selected() && $this->selected()->contains($this->modelKeyName, $key);
+    }
+
+    public function render(): View
+    {
+        return view($this->viewName ?? 'wireforms::livewire.multi-select');
     }
 }

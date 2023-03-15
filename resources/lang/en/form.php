@@ -3,6 +3,9 @@
 return [
     'close' => 'Close',
     'save' => 'Save',
+    'delete' => 'Delete',
+    'restore' => 'Restore',
+    'confirm' => 'Confirm',
     'successfully_saved' => 'Successfully saved!',
     'unable_to_save' => 'Unable to save!',
     'please_select' => 'Please select',
@@ -14,5 +17,6 @@ return [
     'empty_result_create_new' => 'Nothing found. Create new?',
     'not_found' => 'Nothing found. Repeat please.',
     'item_found' => 'Successfully found',
-    'min_input_length' => 'Type :count or more characters'
+    'min_input_length' => 'Type :count or more characters',
+    'loading' => 'Loading...'
 ];

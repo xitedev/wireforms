@@ -25,12 +25,12 @@ abstract class ModelSelect extends BaseSelect
         ?int $limit = 20,
         bool $searchable = true,
         ?string $viewName = null,
-        string $model = null,
+        ?string $model = null,
         ?string $orderBy = null,
         ?string $orderDir = null,
-        string $createNewModel = null,
-        string $createNewField = null,
-        string $editModel = null,
+        ?string $createNewModel = null,
+        ?string $createNewField = null,
+        ?string $editModel = null,
         ?Collection $filters = null
     ): void {
         $this->name = $name;
@@ -41,7 +41,6 @@ abstract class ModelSelect extends BaseSelect
         $this->minInputLength = $minInputLength;
         $this->limit = $limit;
         $this->searchable = $searchable;
-        $this->viewName = $viewName;
         $this->model = $model;
         $this->orderBy = $orderBy;
         $this->orderDir = $orderDir;
@@ -49,6 +48,7 @@ abstract class ModelSelect extends BaseSelect
         $this->createNewField = $createNewField;
         $this->editModel = $editModel;
         $this->filters = $filters;
+        $this->viewName = $viewName;
     }
 
     protected function getListeners(): array
@@ -79,11 +79,6 @@ abstract class ModelSelect extends BaseSelect
     public function changeFilter(string $filter, $value): void
     {
         $this->filters = $this->filters->put($filter, $value);
-    }
-
-    public function showResults(): bool
-    {
-        return is_null($this->minInputLength) || $this->minInputLength <= Str::length($this->search);
     }
 
     public function getCreateNewParamsProperty(): string

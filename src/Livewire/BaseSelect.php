@@ -18,8 +18,8 @@ abstract class BaseSelect extends Component
     public bool $readonly = false;
     public bool $searchable = true;
     public int $limit = 20;
-    public ?string $viewName = null;
     public ?int $minInputLength = null;
+    public ?string $viewName;
     public ?string $emitUp = 'updatedChild';
 
     public function mount(
@@ -31,7 +31,8 @@ abstract class BaseSelect extends Component
         ?int $minInputLength = null,
         ?int $limit = null,
         bool $searchable = true,
-        ?string $viewName = null
+        ?string $viewName = null,
+        ?string $emitUp = null
     ): void {
         $this->name = $name;
         $this->required = $required;
@@ -41,10 +42,9 @@ abstract class BaseSelect extends Component
         $this->minInputLength = $minInputLength;
         $this->limit = $limit;
         $this->searchable = $searchable;
+        $this->emitUp = $emitUp;
         $this->viewName = $viewName;
     }
-
-    abstract public function showResults(): bool;
 
     abstract public function getResultsProperty(): ?Collection;
 

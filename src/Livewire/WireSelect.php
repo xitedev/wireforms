@@ -3,14 +3,13 @@
 namespace Xite\Wireforms\Livewire;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Xite\Searchable\Filters\SearchFilter;
 
 class WireSelect extends ModelSelect
 {
-    public ?string $viewName = 'wireforms::livewire.model-select';
-
     protected function selected()
     {
         if (is_null($this->value)) {
@@ -71,7 +70,7 @@ class WireSelect extends ModelSelect
 
     public function getResultsProperty(): Collection
     {
-        if (! $this->isOpen || ! $this->showResults()) {
+        if (! $this->isOpen) {
             return collect();
         }
 
@@ -94,5 +93,10 @@ class WireSelect extends ModelSelect
     public function isCurrent(string $key): bool
     {
         return $this->selected() && $key === $this->selectedValue;
+    }
+
+    public function render(): View
+    {
+        return view($this->viewName ?? 'wireforms::livewire.model-select');
     }
 }
