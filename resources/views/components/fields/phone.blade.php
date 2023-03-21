@@ -21,6 +21,7 @@
             }
          }"
          x-init="init"
+         wire:ignore
     >
         @isset($prepend)
             {{ $prepend }}
@@ -43,7 +44,6 @@
             @disabled($disabled)
             x-mask:dynamic="mask"
             x-on:input="if ($el.value.length === mask.length) { value = $el.value }"
-            wire:ignore
         >
         @isset($slot)
             {{ $slot }}

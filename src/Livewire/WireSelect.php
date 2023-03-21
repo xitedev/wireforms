@@ -51,20 +51,6 @@ class WireSelect extends ModelSelect
             ? $this->model::searchQuery()
             : $this->model::query();
 
-        if ($this->filters?->count()) {
-            $this->filters->each(
-                fn ($value, $key) => $query->when(
-                    ($string = Str::of($key)) && $string->startsWith('scope'),
-                    fn (Builder $query) => $query->{$string->replaceFirst('scope', '')->camel()->toString()}($value),
-                    fn ($query) => $query->when(
-                        is_array($value),
-                        fn ($query) => $query->whereIn($key, $value),
-                        fn ($query) => $query->where($key, $value)
-                    )
-                )
-            );
-        }
-
         return $query;
     }
 
@@ -78,6 +64,22 @@ class WireSelect extends ModelSelect
             ->when(
                 $this->searchable,
                 new SearchFilter($this->search)
+            )
+            ->when(
+                $this->filters?->count(),
+                fn ($query) => $query->where(function ($query) {
+                    $this->filters->each(
+                        fn ($value, $key) => $query->when(
+                            ($string = Str::of($key)) && $string->startsWith('scope'),
+                            fn (Builder $query) => $query->{$string->replaceFirst('scope', '')->camel()->toString()}($value),
+                            fn ($query) => $query->when(
+                                is_array($value),
+                                fn ($query) => $query->whereIn($key, $value),
+                                fn ($query) => $query->where($key, $value)
+                            )
+                        )
+                    );
+                })
             )
             ->orderBy(
                 $this->orderBy ?? $this->getModelKeyNameProperty(),
