@@ -10,7 +10,7 @@
 >
     <div class="flex w-full"
          x-data="{
-            amount: '',
+            amount: '0',
             value: @entangle($attributes->wire('model')),
             currency: 'USD',
             update() {
@@ -29,10 +29,11 @@
          }"
          x-init="
              update();
-             $watch('amount', value => (value && currency) && $wire.emitSelf('updatedChild', '{{ $id }}', {
+             $watch('amount', value => $wire.emitSelf('updatedChild', '{{ $id }}', {
                 amount: Number.parseFloat(value * 100).toFixed(0),
                 currency: currency
-             }))
+             }));
+             $watch('value', () => update())
          "
          @update-currency.window="updateCurrency()"
     >
