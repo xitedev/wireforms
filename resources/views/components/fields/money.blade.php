@@ -6,7 +6,7 @@
     :show-label="$showLabel"
     :help="$help"
     :key="$key"
-    {{ $attributes->whereDoesntStartWith(['data', 'x-', 'wire:model', 'wire:change']) }}
+    {{ $attributes->whereDoesntStartWith(['data', 'x-', 'wire:model']) }}
 >
     <div class="flex w-full"
          x-data="{

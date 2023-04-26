@@ -65,7 +65,10 @@
     </button>
 
     @if(!$this->readonly)
-        <div class="absolute min-h-[80px] w-full bg-white border border-primary-300 border-t-0 rounded-b-sm -mt-px z-20 transition ease-in-out duration-150"
+        <div @class([
+            "absolute w-full bg-white border border-primary-300 border-t-0 rounded-b-sm -mt-px z-20 transition ease-in-out duration-150",
+            'min-h-[80px]' => $this->searchable,
+            ])
              @if($this->searchable)
                  x-effect="$refs.search.focus()"
              @endif
