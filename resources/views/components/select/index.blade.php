@@ -40,7 +40,7 @@
                  wire:target="setSelected"
             >
                 @if($this->selectedValue)
-                    <div class="flex-1 truncate text-gray-700">
+                    <div class="flex-1 truncate w-full text-gray-700">
                         {{ $this->selectedTitle }}
                     </div>
 

@@ -42,12 +42,12 @@
                     'pr-7' => $allowClear && !$disabled,
                     $innerClass
                ])
-               data-time="{{ $time ? 1 : 0 }}"
+               @if($time) data-time="1" @endif
                data-mode="{{ $mode }}"
                data-format="{{ $time ? $timeFormat : $format }}"
                @if($required) required="required" @endif
-            @disabled($disabled)
-            {{ $attributes->whereStartsWith(['wire:change', 'x-']) }}
+               @disabled($disabled)
+               {{ $attributes->whereStartsWith(['wire:change', 'x-']) }}
         >
 
         @if($allowClear && !$disabled)
