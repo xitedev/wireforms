@@ -5,6 +5,7 @@ namespace Xite\Wireforms;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
 use LivewireUI\Modal\ModalComponent;
 use Xite\Wireforms\Contracts\FormFieldContract;
@@ -88,11 +89,22 @@ abstract class Form extends ModalComponent
     protected function performSave(): void
     {
         if (! $this->model->isDirty()) {
+            $this->dispatchBrowserEvent('notify', [
+                'type' => 'info',
+                'message' => __('wireforms::form.nothing_to_save'),
+            ]);
+
             return;
         }
 
         $this->validate();
+
         $this->model->save();
+
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'success',
+            'message' => __('wireforms::form.successfully_saved'),
+        ]);
     }
 
     protected function callBeforeAndAfterSyncHooks($name, $value, $callback): void
@@ -111,11 +123,6 @@ abstract class Form extends ModalComponent
 
             $this->afterSave();
 
-            $this->dispatchBrowserEvent('notify', [
-                'type' => 'success',
-                'message' => __('wireforms::form.successfully_saved'),
-            ]);
-
             if (! is_null($this->parentModal)) {
                 $this->closeModalWithEvents([
                     ['fillParent.' . $this->parentModal, [$this->model->getKey()]],
@@ -125,6 +132,8 @@ abstract class Form extends ModalComponent
                     '$refresh',
                 ]);
             }
+        } catch (ValidationException $exception) {
+            throw $exception;
         } catch (\Throwable $exception) {
             $this->dispatchBrowserEvent('notify', [
                 'type' => 'error',

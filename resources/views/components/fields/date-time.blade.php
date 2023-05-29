@@ -6,7 +6,6 @@
     :show-label="$showLabel"
     :help="$help"
     :key="$key"
-    wire:ignore
     {{ $attributes->whereDoesntStartWith(['wire:model', 'wire:change', 'x-']) }}
 >
     <div class="relative"
@@ -16,6 +15,7 @@
          @if($attributes->whereStartsWith('wire:model')->first())
              x-init="$watch('value', value => $wire.emitSelf('updatedChild', '{{ $attributes->whereStartsWith('wire:model')->first() }}', value))"
          @endif
+         wire:ignore
     >
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             @isset($prepend)
@@ -26,6 +26,7 @@
                 </svg>
             @endisset
         </div>
+
         <input type="text"
                name="{{ $name }}"
                id="{{ $id }}"
