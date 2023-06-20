@@ -14,6 +14,7 @@ abstract class ModelSelect extends BaseSelect
     public ?string $createNewField = null;
     public ?string $editModel = null;
     public ?Collection $filters = null;
+    public ?array $fillFields = [];
 
     public function mount(
         string $name,
@@ -31,7 +32,8 @@ abstract class ModelSelect extends BaseSelect
         ?string $createNewModel = null,
         ?string $createNewField = null,
         ?string $editModel = null,
-        ?Collection $filters = null
+        ?Collection $filters = null,
+        ?array $fillFields = []
     ): void {
         $this->name = $name;
         $this->required = $required;
@@ -49,6 +51,7 @@ abstract class ModelSelect extends BaseSelect
         $this->editModel = $editModel;
         $this->filters = $filters;
         $this->viewName = $viewName;
+        $this->fillFields = $fillFields;
     }
 
     protected function getListeners(): array
@@ -89,11 +92,13 @@ abstract class ModelSelect extends BaseSelect
                 fn ($collection) => $collection
                     ->when(
                         $this->search,
-                        fn ($collection) => $collection->put('fillFields', [
-                            $this->createNewField => $this->search,
-                        ])
+                        fn ($collection) => $collection->put('fillFields', array_merge(
+                                [$this->createNewField => $this->search],
+                                $this->fillFields
+                            )
+                        )
+                            ->put('parentModal', $this->id)
                     )
-                    ->put('parentModal', $this->id)
             )
             ->toJson();
     }
