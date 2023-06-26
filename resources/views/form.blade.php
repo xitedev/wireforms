@@ -6,26 +6,26 @@
             <span aria-hidden="true">×</span>
         </button>
     </div>
-    <div class="relative p-3">
+
+    <div class="p-3">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-6">
             @foreach($fields as $field)
                 {!! $field !!}
             @endforeach
         </div>
     </div>
-    <div class="p-3 flex justify-end border-t border-gray-100">
-        <div>
-            <x-wireforms::button.secondary
-                wire:click="$emit('closeModal')"
-                :title="__('wireforms::form.close')"
-            />
 
-            <x-wireforms::button.primary
-                type="submit"
-                :title="__('wireforms::form.save')"
-                :disabled="$errors->any()"
-                wire:loading.attr="disabled"
-            />
-        </div>
+    <div class="p-3 flex justify-end space-x-2 border-t border-gray-100">
+        <x-wireforms::button.secondary
+            wire:click="$emit('closeModal')"
+            :title="__('wireforms::form.close')"
+        />
+
+        <x-wireforms::button.primary
+            type="submit"
+            :title="__('wireforms::form.save')"
+            :disabled="$errors->any()"
+            wire:loading.attr="disabled"
+        />
     </div>
 </form>
