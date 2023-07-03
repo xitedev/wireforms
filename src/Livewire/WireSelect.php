@@ -67,7 +67,7 @@ class WireSelect extends ModelSelect
             )
             ->when(
                 $this->filters?->count(),
-                fn ($query) => $query->where(function ($query) {
+                fn ($query) => $query->tap(function ($query) {
                     $this->filters->each(
                         fn ($value, $key) => $query->when(
                             ($string = Str::of($key)) && $string->startsWith('scope'),
