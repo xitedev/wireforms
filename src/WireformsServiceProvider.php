@@ -49,5 +49,10 @@ class WireformsServiceProvider extends PackageServiceProvider
             'wireforms.livewire.wire-multi-select',
             \Xite\Wireforms\Livewire\WireMultiSelect::class
         );
+
+        Livewire::component(
+            'wireforms.livewire.options-select',
+            \Xite\Wireforms\Livewire\OptionsSelect::class
+        );
     }
 }

@@ -24,7 +24,6 @@
         <x-wireforms::button.primary
             type="submit"
             :title="__('wireforms::form.save')"
-            :disabled="$errors->any()"
             wire:loading.attr="disabled"
         />
     </div>

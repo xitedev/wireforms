@@ -295,7 +295,7 @@ abstract class FormField implements FormFieldContract
                 fn (FieldContract $field) => $field
                     ->withAttributes($this->getAttributes() + [
                             'class' => $class,
-                            'wire:model.debounce.1s' => $field->name,
+                            'wire:model.defer' => $field->name,
                         ])
                     ->render()
             )

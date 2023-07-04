@@ -11,14 +11,14 @@
             aria-labelledby="listbox-label"
             @if(!$this->readonly)
                 x-on:click.prevent="open = !open"
-        @endif
-        @class([
-            'relative flex items-center min-h-[34px] w-full border px-3 text-left cursor-pointer transition ease-in-out duration-150 disabled:bg-gray-200 rounded-sm',
-            'bg-gray-50 cursor-not-allowed' => $this->readonly,
-            'bg-white cursor-pointer focus:outline-none' => !$this->readonly,
-            'border-primary-300' => $this->isOpen,
-            'border-gray-200 focus:border-primary-300' => !$this->isOpen
-        ])
+            @endif
+            @class([
+                'relative flex items-center min-h-[34px] w-full border px-3 text-left cursor-pointer transition ease-in-out duration-150 disabled:bg-gray-200 rounded-sm',
+                'bg-gray-50 cursor-not-allowed' => $this->readonly,
+                'bg-white cursor-pointer focus:outline-none' => !$this->readonly,
+                'border-primary-300' => $this->isOpen,
+                'border-gray-200 focus:border-primary-300' => !$this->isOpen
+            ])
     >
         @isset($currentItem)
             {{ $currentItem }}

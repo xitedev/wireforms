@@ -18,9 +18,11 @@ class Select extends Field
         ?string $placeholder = null,
         ?string $help = null,
         ?string $innerClass = null,
+        public ?int $limit = 20,
+        public ?int $minInputLength = null,
+        public ?string $emitUp = null,
         public array $options = [],
         public bool $nullable = false,
-        public bool $multiple = false
     ) {
         parent::__construct(
             $name,
