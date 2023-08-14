@@ -10,11 +10,7 @@ use Xite\Searchable\Filters\SearchFilter;
 
 class WireMultiSelect extends ModelSelect
 {
-    public ?string $model = null;
-    public ?string $createNewModel = null;
-    public ?string $createNewField = null;
-    public ?Collection $filters = null;
-    public ?array $values = [];
+   public ?array $values = [];
 
     public function mount(
         string $name,

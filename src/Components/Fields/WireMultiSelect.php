@@ -29,7 +29,8 @@ class WireMultiSelect extends Field
         public ?string $orderDir = null,
         public ?Collection $filters = null,
         public ?string $emitUp = null,
-        public ?string $customView = null
+        public ?string $customView = null,
+        public ?array $fillFields = []
     ) {
         parent::__construct(
             $name,

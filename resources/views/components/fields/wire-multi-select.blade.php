@@ -28,6 +28,7 @@
             :filters="$filters"
             :emit-up="$emitUp"
             :view-name="$customView"
+            :fill-fields="$fillFields"
             :key="$key ?? $id"
         />
     </div>

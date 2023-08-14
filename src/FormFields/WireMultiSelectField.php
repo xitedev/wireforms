@@ -24,6 +24,7 @@ class WireMultiSelectField extends FormField
     protected ?int $minInputLength = null;
     protected ?string $customView = null;
     protected ?Collection $filters = null;
+    protected ?array $fillFields = [];
 
     public function model(string $model): self
     {
@@ -87,6 +88,13 @@ class WireMultiSelectField extends FormField
         return $this;
     }
 
+    public function fillFields(array $fillFields): self
+    {
+        $this->fillFields = $fillFields;
+
+        return $this;
+    }
+
     public function filterBy(string $key, $value): self
     {
         if (is_null($value)) {
@@ -122,7 +130,8 @@ class WireMultiSelectField extends FormField
             filters: $this->filters,
             createNewModel: $this->createNewModel,
             createNewField: $this->createNewField,
-            customView: $this->customView
+            customView: $this->customView,
+            fillFields: $this->fillFields
         );
     }
 }

@@ -1,6 +1,6 @@
 <fieldset
+    @if($key) wire:key="{{ $key }}" @endif
     {{ $attributes->class('space-y-1')->only('class') }}
-    wire:key="{{ $key }}"
 >
     <div class="flex items-center space-x-2">
         <button type="button"
