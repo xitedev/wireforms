@@ -19,6 +19,7 @@
             :limit="$limit"
             :min-input-length="$minInputLength"
             :nullable="$nullable"
+            :multiple="$multiple"
             :value="$value"
             :emit-up="$emitUp"
             :key="$key ?? $id"

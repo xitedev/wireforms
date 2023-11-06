@@ -23,7 +23,8 @@ class OptionsSelect extends BaseSelect
         bool $searchable = false,
         ?string $viewName = null,
         ?string $emitUp = null,
-        ?array $options = []
+        ?array $options = [],
+        ?bool $multiple = false,
     ): void {
         $this->name = $name;
         $this->required = $required;
@@ -36,6 +37,7 @@ class OptionsSelect extends BaseSelect
         $this->emitUp = $emitUp;
         $this->viewName = $viewName;
         $this->options = $options;
+        $this->multiple = $multiple;
     }
 
     protected function getListeners(): array
