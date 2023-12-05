@@ -38,7 +38,7 @@ class WireMultiSelectField extends FormField
         $component = app($modelComponent);
 
         if ($component instanceof Component && $this->model && $this->authorizeModel('create', $this->model)) {
-            $this->createNewModel = $component::getName();
+            $this->createNewModel = $component::getComponentName();
             $this->createNewField = $field;
         }
 

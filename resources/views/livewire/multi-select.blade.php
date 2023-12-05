@@ -35,7 +35,7 @@
                         key="listbox-option-0-new"
                         :value="__('wireforms::form.empty_result_create_new')"
                         class="text-gray-900 focus:text-white focus:bg-primary-600 hover:text-white hover:bg-primary-600 cursor-pointer select-none"
-                        wire:click.prevent="$emit('openModal', '{{ $createNewModel }}', {{ $this->createNewParams }})"
+                        wire:click.prevent="$dispatch('openModal', { component: '{{ $createNewModel }}', arguments: {{ $this->createNewParams }}})"
                     />
                 @else
                     <x-wireforms::select.list-item

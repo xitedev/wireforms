@@ -4,7 +4,7 @@
      'listItems'
 ])
 
-<div class="relative flex-1 w-full" x-data="{ open: @entangle('isOpen') }">
+<div class="relative flex-1 w-full" x-data="{ open: @entangle('isOpen').live }">
     <button type="button"
             aria-haspopup="listbox"
             :aria-expanded="open ? 'true' : 'false'"
@@ -26,6 +26,7 @@
             <div class="animate-pulse space-y-1 grid grid-cols-4 w-1/2 transition-opacity"
                  wire:loading
                  wire:target="setSelected"
+                 style="display: none;"
             >
                 <div class="h-2 bg-gray-200 rounded col-span-3"></div>
 
@@ -73,6 +74,7 @@
                  x-effect="$refs.search.focus()"
              @endif
              x-show="open"
+             x-trap="open"
              x-on:click.away="open = false"
         >
             @if($this->searchable)
@@ -82,12 +84,16 @@
                            name="search"
                            x-ref="search"
                            class="block flex-1 p-1 text-sm text-gray-700 bg-primary-50/25 outline-none"
-                           wire:model.debounce.500ms="search"
+                           wire:model.live.debounce.500ms="search"
                            placeholder="@lang('wireforms::form.search')"
                            autocomplete="false"
                            autofocus
                     >
-                    <div class="flex items-center pointer-events-none" wire:loading wire:target="search">
+                    <div class="flex items-center pointer-events-none"
+                         wire:loading
+                         wire:target="search"
+                         style="display: none;"
+                    >
                         <svg class="h-4 w-4 text-gray-400 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                         </svg>
@@ -95,7 +101,10 @@
                 </div>
             @endif
 
-            <span class="py-2 text-gray-300 w-full block text-center text-base leading-6 sm:text-sm sm:leading-5" wire:loading.delay.shorter>
+            <span class="py-2 text-gray-300 w-full block text-center text-base leading-6 sm:text-sm sm:leading-5"
+                  wire:loading.delay.shorter
+                  style="display: none;"
+            >
                 @lang('wireforms::form.loading')
             </span>
 

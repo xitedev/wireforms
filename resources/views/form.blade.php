@@ -2,7 +2,7 @@
     <div class="bg-primary-500 text-white flex justify-between items-center px-4 py-3">
         <h4 class="text-base font-semibold tracking-wide">{{ $title }}</h4>
 
-        <button type="button" class="text-white hover:text-gray-200 text-xl font-bold" wire:click="$emit('closeModal')">
+        <button type="button" class="text-white hover:text-gray-200 text-xl font-bold" wire:click="$dispatch('closeModal')">
             <span aria-hidden="true">×</span>
         </button>
     </div>
@@ -17,7 +17,7 @@
 
     <div class="p-3 flex justify-end space-x-2 border-t border-gray-100">
         <x-wireforms::button.secondary
-            wire:click="$emit('closeModal')"
+            wire:click="$dispatch('closeModal')"
             :title="__('wireforms::form.close')"
         />
 

@@ -4,6 +4,7 @@ namespace Xite\Wireforms\Livewire;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 
 abstract class ModelSelect extends BaseSelect
 {
@@ -57,12 +58,11 @@ abstract class ModelSelect extends BaseSelect
     protected function getListeners(): array
     {
         return [
-            'fillParent' => 'setSelected',
-            'fillParent.' . $this->id => 'setSelected',
-            'changeFilter' => 'changeFilter',
+            'fillParent.' . $this->getId() => 'setSelected'
         ];
     }
 
+    #[On('setSelected')]
     public function setSelected($value, ?bool $trigger = true): void
     {
         $this->search = '';
@@ -75,10 +75,11 @@ abstract class ModelSelect extends BaseSelect
         $this->value = $value;
 
         if ($trigger) {
-            $this->emitUp($this->emitUp, $this->name, $this->value);
+            $this->dispatchTo($this->emitUp, $this->name, $this->value);
         }
     }
 
+    #[On('changeFilter')]
     public function changeFilter(string $filter, $value): void
     {
         $this->filters = $this->filters->put($filter, $value);
@@ -97,7 +98,7 @@ abstract class ModelSelect extends BaseSelect
                                 $this->fillFields
                             )
                         )
-                            ->put('parentModal', $this->id)
+                            ->put('parentModal', $this->getId())
                     )
             )
             ->toJson();

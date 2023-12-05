@@ -44,7 +44,7 @@ class OptionsSelect extends BaseSelect
     {
         return [
             'fillParent' => 'setSelected',
-            'fillParent.' . $this->id => 'setSelected'
+            'fillParent.' . $this->getId() => 'setSelected'
         ];
     }
 
@@ -60,10 +60,6 @@ class OptionsSelect extends BaseSelect
 
     public function getResultsProperty(): Collection
     {
-        if (! $this->isOpen) {
-            return collect();
-        }
-
         return collect($this->options);
     }
 
@@ -78,7 +74,7 @@ class OptionsSelect extends BaseSelect
         $this->value = $value;
 
         if ($trigger) {
-            $this->emitUp($this->emitUp, $this->name, $this->value);
+            $this->dispatchTo($this->emitUp, $this->name, $this->value);
         }
     }
 

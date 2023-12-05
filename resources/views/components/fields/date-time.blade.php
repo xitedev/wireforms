@@ -13,7 +13,7 @@
             value: '{{ $value }}',
          }"
          @if($attributes->whereStartsWith('wire:model')->first())
-             x-init="$watch('value', value => $wire.emitSelf('updatedChild', '{{ $attributes->whereStartsWith('wire:model')->first() }}', value))"
+             x-init="$watch('value', value => $dispatchSelf('updatedChild', { key: '{{ $attributes->whereStartsWith('wire:model')->first() }}', value: value}))"
          @endif
          wire:ignore
     >

@@ -3,16 +3,10 @@
 namespace Xite\Wireforms\Traits;
 
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 
 trait HasChild
 {
-    public function bootHasChild(): void
-    {
-        $this->listeners = array_merge($this->listeners, [
-            'updatedChild',
-        ]);
-    }
-
     protected function fillWithHydrate($key, $value = null): void
     {
         $this->fill([
@@ -30,7 +24,8 @@ trait HasChild
         }
     }
 
-    public function updatedChild($key, $value = null): void
+    #[On('updatedChild')]
+    public function updatedChild(string $key, $value = null): void
     {
         if (method_exists($this, 'validateField')) {
             $this->validateField($key, $value);

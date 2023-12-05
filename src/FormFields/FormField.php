@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Conditionable;
 use Xite\Wireforms\Contracts\FieldContract;
 use Xite\Wireforms\Contracts\FormFieldContract;
+use Xite\Wireforms\Traits\HasComponentName;
 use Xite\Wireforms\Traits\HasDisable;
 use Xite\Wireforms\Traits\HasRequired;
 
@@ -293,10 +294,16 @@ abstract class FormField implements FormFieldContract
             ->renderField($model)
             ->map(
                 fn (FieldContract $field) => $field
-                    ->withAttributes($this->getAttributes() + [
-                            'class' => $class,
-                            'wire:model.defer' => $field->name,
-                        ])
+                    ->withAttributes(
+                        array_merge(
+                            $this->getAttributes(),
+                            $field->attributes?->getAttributes() ?? [],
+                            [
+                                'class' => $class,
+                                'wire:model' => $field->name,
+                            ]
+                        )
+                    )
                     ->render()
             )
             ->toArray();

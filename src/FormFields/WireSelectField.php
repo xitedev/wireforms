@@ -45,7 +45,7 @@ class WireSelectField extends FormField
         $component = app($modelComponent);
 
         if ($component instanceof Component) {
-            $this->createNewModel = $component::getName();
+            $this->createNewModel = $component::getComponentName();
             $this->createNewField = $field;
         }
 
@@ -61,7 +61,7 @@ class WireSelectField extends FormField
         $component = app($modelComponent);
 
         if ($component instanceof Component) {
-            $this->editModel = $component::getName();
+            $this->editModel = $component::getComponentName();
         }
 
         return $this;

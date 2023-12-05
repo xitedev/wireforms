@@ -11,7 +11,7 @@ trait HasDefaults
     public function mountHasDefaults(): void
     {
         if (! $this->model?->getKey()) {
-            $this->fields
+            $this->getFields
                 ->filter(
                     fn (FormFieldContract $field) => $field->hasDefault()
                 )
@@ -22,7 +22,7 @@ trait HasDefaults
         }
 
         if (count($this->fillFields)) {
-            $this->fields
+            $this->getFields
                 ->filter(
                     fn (FormFieldContract $field) => isset($this->fillFields[$field->getName()])
                 )

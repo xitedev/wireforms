@@ -7,15 +7,22 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
+use Livewire\Attributes\Computed;
+use Livewire\Mechanisms\ComponentRegistry;
 use LivewireUI\Modal\ModalComponent;
 use Xite\Wireforms\Contracts\FormFieldContract;
+use Xite\Wireforms\Enums\NotifyType;
+use Xite\Wireforms\Traits\EmitMessages;
 use Xite\Wireforms\Traits\HasChild;
+use Xite\Wireforms\Traits\HasComponentName;
 use Xite\Wireforms\Traits\HasDefaults;
 
 abstract class Form extends ModalComponent
 {
     use HasChild;
     use HasDefaults;
+    use HasComponentName;
+    use EmitMessages;
 
     public ?string $parentModal = null;
     private array $emitFields = [];
@@ -36,7 +43,7 @@ abstract class Form extends ModalComponent
 
     public function rules(): array
     {
-        return $this->fields
+        return $this->getFields
             ->filter(fn (FormFieldContract $field) => $field->hasRules())
             ->mapWithKeys(fn (FormFieldContract $field) => $field->getRules())
             ->toArray();
@@ -44,7 +51,7 @@ abstract class Form extends ModalComponent
 
     public function validateField(string $field, $value = null)
     {
-        $formField = $this->fields
+        $formField = $this->getFields
             ->first(
                 fn (FormFieldContract $formField) => $formField->getNameOrWireModel() === $field
             );
@@ -65,12 +72,8 @@ abstract class Form extends ModalComponent
             );
     }
 
-    public function getFieldsProperty(): Collection
-    {
-        return $this->getFields();
-    }
-
-    private function getFields(): Collection
+    #[Computed]
+    public function getFields(): Collection
     {
         return $this->fields()
             ->filter(
@@ -83,16 +86,13 @@ abstract class Form extends ModalComponent
 
     public function freshFields(): void
     {
-        $this->computedPropertyCache['fields'] = $this->getFields();
+        unset($this->getFields);
     }
 
     protected function performSave(): void
     {
         if (! $this->model->isDirty()) {
-            $this->dispatchBrowserEvent('notify', [
-                'type' => 'info',
-                'message' => __('wireforms::form.nothing_to_save'),
-            ]);
+            $this->emitMessage(NotifyType::INFO, __('wireforms::form.nothing_to_save'));
 
             return;
         }
@@ -101,18 +101,15 @@ abstract class Form extends ModalComponent
 
         $this->model->save();
 
-        $this->dispatchBrowserEvent('notify', [
-            'type' => 'success',
-            'message' => __('wireforms::form.successfully_saved'),
-        ]);
+        $this->emitMessage(NotifyType::SUCCESS, __('wireforms::form.successfully_saved'));
     }
 
-    protected function callBeforeAndAfterSyncHooks($name, $value, $callback): void
-    {
-        $value = $value === "" ? null : $value;
-
-        parent::callBeforeAndAfterSyncHooks($name, $value, $callback);
-    }
+//    protected function callBeforeAndAfterSyncHooks($name, $value, $callback): void
+//    {
+//        $value = $value === "" ? null : $value;
+//
+//        parent::callBeforeAndAfterSyncHooks($name, $value, $callback);
+//    }
 
     public function save(): void
     {
@@ -128,17 +125,12 @@ abstract class Form extends ModalComponent
                     ['fillParent.' . $this->parentModal, [$this->model->getKey()]],
                 ]);
             } else {
-                $this->closeModalWithEvents([
-                    '$refresh',
-                ]);
+                $this->closeModalWithEvents(['$refresh']);
             }
         } catch (ValidationException $exception) {
             throw $exception;
         } catch (\Throwable $exception) {
-            $this->dispatchBrowserEvent('notify', [
-                'type' => 'error',
-                'message' => $exception->getMessage()
-            ]);
+            $this->emitMessage(NotifyType::ERROR, $exception->getMessage());
         }
     }
 
@@ -155,7 +147,7 @@ abstract class Form extends ModalComponent
     public function render(): View
     {
         return view('wireforms::form', [
-            'fields' => $this->fields
+            'fields' => $this->getFields
                 ->map(fn (FormFieldContract $field) => $field->renderIt($this->model))
                 ->flatten(),
             'title' => $this->renderTitle(),

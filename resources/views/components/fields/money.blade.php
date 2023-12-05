@@ -29,10 +29,10 @@
          }"
          x-init="
              update();
-             $watch('amount', value => $wire.emitSelf('updatedChild', '{{ $id }}', {
+             $watch('amount', value => $dispatchSelf('updatedChild', { key: '{{ $id }}', value: {
                 amount: Number.parseFloat(value * 100).toFixed(0),
                 currency: currency
-             }));
+             }}));
              $watch('value', () => update())
          "
          @update-currency.window="updateCurrency()"

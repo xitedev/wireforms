@@ -50,9 +50,9 @@ class NumberField extends TextField
             disabled: $this->disabled
         )->withAttributes(
             array_filter([
-                'min' => $this->min,
-                'max' => $this->max,
-                'step' => $this->step,
+                'min' => (string)$this->min,
+                'max' => (string)$this->max,
+                'step' => (string)$this->step,
             ])
         );
     }
