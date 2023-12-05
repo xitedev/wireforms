@@ -84,7 +84,7 @@ class WireMultiSelect extends ModelSelect
         }
 
         if ($trigger) {
-            $this->dispatchTo($this->emitUp, $this->name, $this->values);
+            $this->dispatch($this->name, $this->values)->to($this->emitUp);
         }
     }
 

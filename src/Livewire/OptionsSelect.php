@@ -74,7 +74,7 @@ class OptionsSelect extends BaseSelect
         $this->value = $value;
 
         if ($trigger) {
-            $this->dispatchTo($this->emitUp, $this->name, $this->value);
+            $this->dispatch($this->name, $this->value)->to($this->emitUp);
         }
     }
 
