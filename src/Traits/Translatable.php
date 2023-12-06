@@ -28,11 +28,9 @@ trait Translatable
         }
 
         return collect($this->translatableLocales)
-            ->mapWithKeys(
-                fn (string $locale) => [
-                    sprintf('%s.%s', $this->getNameOrWireModel(), $locale) => $this->formatRules(),
-                ]
-            )
+            ->mapWithKeys(fn (string $locale) => [
+                sprintf('%s.%s', $this->getNameOrWireModel(), $locale) => $this->formatRules(),
+            ])
             ->all();
     }
 
@@ -53,9 +51,11 @@ trait Translatable
                     )
                     ->when(
                         $field->wireModel,
-                        fn (FormFieldContract $field) => $field->wireModel(
-                            sprintf('%s.%s', $field->wireModel, $locale)
-                        )
+                        fn (FormFieldContract $field) => $field
+                            ->wireModel(
+                                sprintf('%s.%s', $field->wireModel, $locale)
+                            )
+                            ->keyBy($field->wireModel)
                     )
                     ->when(
                         $model,

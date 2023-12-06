@@ -104,13 +104,6 @@ abstract class Form extends ModalComponent
         $this->emitMessage(NotifyType::SUCCESS, __('wireforms::form.successfully_saved'));
     }
 
-//    protected function callBeforeAndAfterSyncHooks($name, $value, $callback): void
-//    {
-//        $value = $value === "" ? null : $value;
-//
-//        parent::callBeforeAndAfterSyncHooks($name, $value, $callback);
-//    }
-
     public function save(): void
     {
         try {

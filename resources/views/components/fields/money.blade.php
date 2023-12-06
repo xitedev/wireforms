@@ -29,7 +29,7 @@
          }"
          x-init="
              update();
-             $watch('amount', value => $dispatchSelf('updatedChild', { key: '{{ $id }}', value: {
+             $watch('amount', value => $dispatch('updatedChild', { key: '{{ $id }}', value: {
                 amount: Number.parseFloat(value * 100).toFixed(0),
                 currency: currency
              }}));
