@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Xite\Searchable\Filters\SearchFilter;
 
 class OptionsSelect extends BaseSelect
@@ -58,7 +59,8 @@ class OptionsSelect extends BaseSelect
         return $this->options[$this->value] ?? null;
     }
 
-    public function getResultsProperty(): Collection
+    #[Computed]
+    public function getResults(): Collection
     {
         return collect($this->options);
     }

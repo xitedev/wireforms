@@ -5,6 +5,7 @@ namespace Xite\Wireforms\Livewire;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 use Xite\Searchable\Filters\SearchFilter;
 
 class NestedSetSelect extends ModelSelect
@@ -53,12 +54,9 @@ class NestedSetSelect extends ModelSelect
         return $this->model::query();
     }
 
-    public function getResultsProperty(): Collection
+    #[Computed]
+    public function getResults(): Collection
     {
-        if (! $this->isOpen) {
-            return collect();
-        }
-
         return $this->searchQuery()
             ->whereNull('parent_id')
             ->when(

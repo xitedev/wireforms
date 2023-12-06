@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Xite\Searchable\Filters\SearchFilter;
 
 class WireSelect extends ModelSelect
@@ -54,12 +55,9 @@ class WireSelect extends ModelSelect
         return $query;
     }
 
-    public function getResultsProperty(): Collection
+    #[Computed]
+    public function getResults(): Collection
     {
-        if (! $this->isOpen) {
-            return collect();
-        }
-
         return $this->searchQuery()
             ->when(
                 $this->searchable,

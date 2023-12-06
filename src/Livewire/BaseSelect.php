@@ -4,6 +4,7 @@ namespace Xite\Wireforms\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 abstract class BaseSelect extends Component
@@ -46,7 +47,8 @@ abstract class BaseSelect extends Component
         $this->viewName = $viewName;
     }
 
-    abstract public function getResultsProperty(): ?Collection;
+    #[Computed]
+    abstract public function getResults(): ?Collection;
 
     abstract public function isCurrent(string $key): bool;
 

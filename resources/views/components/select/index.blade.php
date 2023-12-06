@@ -125,7 +125,7 @@
                     @isset($listItems)
                         {{ $listItems }}
                     @else
-                        @forelse($this->results as $key => $value)
+                        @forelse($this->getResults as $key => $value)
                             <x-wireforms::select.list-item
                                 :key="$key"
                                 :value="$value"
