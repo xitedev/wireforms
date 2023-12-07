@@ -76,7 +76,7 @@ class NestedSetSelect extends ModelSelect
             ->withCount('children')
             ->orderBy(
                 $this->orderBy ?? $this->getModelKeyNameProperty(),
-                $this->orderDir
+                $this->orderDir ?? 'asc'
             )
             ->take($this->limit)
             ->get()

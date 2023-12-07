@@ -29,7 +29,7 @@ abstract class ModelSelect extends BaseSelect
         ?string $viewName = null,
         ?string $model = null,
         ?string $orderBy = null,
-        ?string $orderDir = null,
+        ?string $orderDir = 'asc',
         ?string $createNewModel = null,
         ?string $createNewField = null,
         ?string $editModel = null,

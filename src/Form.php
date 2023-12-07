@@ -130,7 +130,7 @@ abstract class Form extends ModalComponent
     protected function renderTitle(): string
     {
         return collect([
-            $this->title(),
+            $this->title,
             $this->model->getKey(),
         ])
             ->filter()

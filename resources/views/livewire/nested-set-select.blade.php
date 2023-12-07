@@ -7,7 +7,7 @@
 
     <x-wireforms::select>
         <x-slot:listItems>
-            @forelse($this->results as $key => $value)
+            @forelse($this->getResults as $key => $value)
                 @if($value['childrenCount'] > 0)
                     <x-wireforms::select.list-item
                         key="group-{{ $key }}"
