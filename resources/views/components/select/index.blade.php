@@ -23,8 +23,8 @@
         @isset($currentItem)
             {{ $currentItem }}
         @else
-            <div class="animate-pulse space-y-1 grid grid-cols-4 w-1/2 transition-opacity"
-                 wire:loading
+            <div class="animate-pulse space-y-1 grid grid-cols-4 w-1/2"
+                 wire:loading.grid
                  wire:target="setSelected"
                  style="display: none;"
             >
@@ -76,6 +76,7 @@
              x-show="open"
              x-trap="open"
              x-on:click.away="open = false"
+             x-cloak
         >
             @if($this->searchable)
                 <div class="flex items-center justify-between m-1 pl-1 pr-2 border border-primary-100 shadow-sm shadow-primary-100/50 bg-primary-50/50">
@@ -84,7 +85,7 @@
                            name="search"
                            x-ref="search"
                            class="block flex-1 p-1 text-sm text-gray-700 bg-primary-50/25 outline-none"
-                           wire:model.live.debounce.500ms="search"
+                           wire:model.live.debounce.1s="search"
                            placeholder="@lang('wireforms::form.search')"
                            autocomplete="false"
                            autofocus
@@ -130,7 +131,7 @@
                                 :key="$key"
                                 :value="$value"
                                 class="text-gray-900 focus:text-white focus:bg-primary-600 hover:text-white hover:bg-primary-600 cursor-pointer select-none pr-9"
-                                x-on:click.prevent="open = !open; $wire.setSelected('{{ $key }}')"
+                                x-on:click.prevent="open = !open; $wire.setSelected('{{ addslashes($key) }}')"
                             />
                         @empty
                             @isset($listEmpty)

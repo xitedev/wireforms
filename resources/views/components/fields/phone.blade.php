@@ -17,7 +17,7 @@
             value: '{{ $value ?? '+38' }}',
             mask: '+38 (999) 999-99-99',
             init() {
-                $watch('value', value => $dispatch('updatedChild', {key: '{{ $id }}', value: value.replace(/[^\d+]/g, '')}))
+                $watch('value', value => $wire.$dispatchSelf('updatedChild', {key: '{{ $id }}', value: value.replace(/[^\d+]/g, '')}))
             }
          }"
          x-init="init"
