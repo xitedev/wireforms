@@ -44,7 +44,6 @@ class OptionsSelect extends BaseSelect
     protected function getListeners(): array
     {
         return [
-            'fillParent' => 'setSelected',
             'fillParent.' . $this->getId() => 'setSelected'
         ];
     }
@@ -65,6 +64,7 @@ class OptionsSelect extends BaseSelect
         return collect($this->options);
     }
 
+    #[On('setSelected')]
     public function setSelected($value, ?bool $trigger = true): void
     {
         $this->isOpen = false;
