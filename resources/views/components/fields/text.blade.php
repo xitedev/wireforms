@@ -8,7 +8,7 @@
     :key="$key"
     {{ $attributes->whereDoesntStartWith(['data', 'x-', 'wire:model', 'wire:change']) }}
 >
-    <div class="relative flex w-full">
+    <div class="relative flex w-full" x-data>
         @isset($prepend)
             {{ $prepend }}
         @endisset
