@@ -9,9 +9,9 @@
     {{ $attributes->whereDoesntStartWith(['min', 'max', 'step', 'data', 'x-', 'wire:model']) }}
 >
     <div class="relative flex w-full" x-data="{ value: null }" x-modelable="value" {{ $attributes->whereStartsWith('wire:model') }}>
-        <button class="inline-flex items-center space-x-1 w-auto py-1.5 px-3.5 leading-5 font-medium rounded-sm focus:outline-none transition duration-150 ease-in-out disabled:cursor-wait disabled:opacity-75 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-600 border-gray-500 border hover:text-white !rounded-r-none" @click.prevent="() => { if (!$refs.input.min || value > $refs.input.min) { value-- } }">
+        <span class="inline-flex items-center space-x-1 w-auto py-1.5 px-3.5 leading-5 font-medium rounded-sm focus:outline-none transition duration-150 ease-in-out disabled:cursor-wait disabled:opacity-75 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-600 border-gray-500 border hover:text-white !rounded-r-none cursor-pointer" @click.prevent="() => { if (!$refs.input.min || value > $refs.input.min) { value-- } }">
             -
-        </button>
+        </span>
 
         <input type="number"
                name="{{ $name }}"
@@ -35,9 +35,9 @@
                {{ $attributes->whereStartsWith(['min', 'max', 'step', 'data', 'x-']) }}
         >
 
-        <button class="inline-flex items-center space-x-1 w-auto py-1.5 px-3.5 leading-5 font-medium rounded-sm focus:outline-none transition duration-150 ease-in-out disabled:cursor-wait disabled:opacity-75 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-600 border-gray-500 border hover:text-white !rounded-l-none" @click.prevent="() => { if (!$refs.input.max || value < $refs.input.max) { value++ } }">
+        <span class="inline-flex items-center space-x-1 w-auto py-1.5 px-3.5 leading-5 font-medium rounded-sm focus:outline-none transition duration-150 ease-in-out disabled:cursor-wait disabled:opacity-75 text-white bg-gray-500 hover:bg-gray-600 active:bg-gray-600 border-gray-500 border hover:text-white !rounded-l-none cursor-pointer" @click.prevent="() => { if (!$refs.input.max || value < $refs.input.max) { value++ } }">
             +
-        </button>
+        </span>
 
         @isset($slot)
             {{ $slot }}
