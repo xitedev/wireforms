@@ -8,6 +8,7 @@ return [
     'confirm' => 'Confirm',
     'successfully_saved' => 'Successfully saved!',
     'unable_to_save' => 'Unable to save!',
+    'nothing_to_save' => 'Nothing to save',
     'please_select' => 'Please select',
     'required' => 'Required',
     'remove_all_items' => 'Remove all items',

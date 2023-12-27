@@ -6,7 +6,7 @@
     :show-label="$showLabel"
     :help="$help"
     :key="$key"
-    {{ $attributes->whereDoesntStartWith(['min', 'max', 'step', 'data', 'x-', 'wire:model', 'wire:change']) }}
+    {{ $attributes->whereDoesntStartWith(['data', 'x-', 'wire:model', 'wire:change']) }}
 >
     <div class="w-full">
         <input type="file"
@@ -23,7 +23,7 @@
                ])
                @if($required) required="required" @endif
             @disabled($disabled)
-            {{ $attributes->whereStartsWith(['min', 'max', 'step', 'data', 'wire:model', 'wire:change', 'x-']) }}
+            {{ $attributes->whereStartsWith(['data', 'wire:model', 'wire:change', 'x-']) }}
         >
         @if($value)
             <a href="{{ $value->getUrl() }}" class="inline-flex space-x-1 items-center text-xs text-gray-500 pt-1">

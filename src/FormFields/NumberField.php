@@ -2,12 +2,11 @@
 
 namespace Xite\Wireforms\FormFields;
 
-use Xite\Wireforms\Components\Fields\Text;
+use Xite\Wireforms\Components\Fields\Number;
 use Xite\Wireforms\Contracts\FieldContract;
 
 class NumberField extends TextField
 {
-    public ?string $type = 'number';
     protected array $rules = ['numeric'];
     private ?float $min = null;
     private ?float $max = null;
@@ -38,11 +37,10 @@ class NumberField extends TextField
 
     protected function render(): FieldContract
     {
-        return Text::make(
+        return Number::make(
             name: $this->getNameOrWireModel(),
             value: $this->value,
             label: $this->label,
-            type: $this->type,
             help: $this->help,
             key: $this->key,
             placeholder: $this->placeholder,

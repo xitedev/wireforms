@@ -6,7 +6,7 @@
     :show-label="$showLabel"
     :help="$help"
     :key="$key"
-    {{ $attributes->whereDoesntStartWith(['min', 'max', 'step', 'data', 'x-', 'wire:model', 'wire:change']) }}
+    {{ $attributes->whereDoesntStartWith(['data', 'x-', 'wire:model', 'wire:change']) }}
 >
     <div class="relative flex w-full">
         @isset($prepend)
@@ -31,7 +31,7 @@
                ])
                @if($required) required="required" @endif
             @disabled($disabled)
-            {{ $attributes->whereStartsWith(['min', 'max', 'step', 'data', 'wire:model', 'wire:change', 'x-']) }}
+            {{ $attributes->whereStartsWith(['data', 'wire:model', 'wire:change', 'x-']) }}
         >
         @isset($slot)
             {{ $slot }}

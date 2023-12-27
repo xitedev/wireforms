@@ -2,13 +2,14 @@
 
 namespace Xite\Wireforms\FormFields;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Xite\Wireforms\Components\Fields\WireMultiSelect;
+use Xite\Wireforms\Components\Fields\NestedSetSelect;
 use Xite\Wireforms\Contracts\FieldContract;
 use Xite\Wireforms\Traits\Authorizable;
 
-class WireMultiSelectField extends FormField
+class NestedSetSelectField extends FormField
 {
     use Authorizable;
 
@@ -20,6 +21,7 @@ class WireMultiSelectField extends FormField
     protected ?string $createNewModel = null;
     protected ?string $createNewField = null;
     protected ?string $editModel = null;
+    protected ?int $limit = 20;
     protected ?int $minInputLength = null;
     protected ?string $customView = null;
     protected ?Collection $filters = null;
@@ -34,11 +36,30 @@ class WireMultiSelectField extends FormField
 
     public function createNewModel(string $modelComponent, ?string $field = null): self
     {
+        if (! $this->model || ! $this->authorizeModel('create', $this->model)) {
+            return $this;
+        }
+
         $component = app($modelComponent);
 
-        if ($component instanceof Component && $this->model && $this->authorizeModel('create', $this->model)) {
+        if ($component instanceof Component) {
             $this->createNewModel = $component::getComponentName();
             $this->createNewField = $field;
+        }
+
+        return $this;
+    }
+
+    public function editModel(string $modelComponent, ?Model $model = null): self
+    {
+        if (is_null($model) || ! $this->authorizeModel('update', $model)) {
+            return $this;
+        }
+
+        $component = app($modelComponent);
+
+        if ($component instanceof Component) {
+            $this->editModel = $component::getComponentName();
         }
 
         return $this;
@@ -58,6 +79,13 @@ class WireMultiSelectField extends FormField
         return $this;
     }
 
+    public function fillFields(array $fillFields): self
+    {
+        $this->fillFields = $fillFields;
+
+        return $this;
+    }
+
     public function nullable(): self
     {
         $this->nullable = true;
@@ -73,6 +101,13 @@ class WireMultiSelectField extends FormField
         return $this;
     }
 
+    public function limit(int $limit): self
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
     public function orderDir(string $orderDir): self
     {
         $this->orderDir = $orderDir;
@@ -83,13 +118,6 @@ class WireMultiSelectField extends FormField
     public function orderBy(string $orderBy): self
     {
         $this->orderBy = $orderBy;
-
-        return $this;
-    }
-
-    public function fillFields(array $fillFields): self
-    {
-        $this->fillFields = $fillFields;
 
         return $this;
     }
@@ -111,24 +139,26 @@ class WireMultiSelectField extends FormField
 
     protected function render(): FieldContract
     {
-        return WireMultiSelect::make(
+        return NestedSetSelect::make(
             name: $this->getNameOrWireModel(),
             value: $this->value,
             model: $this->model,
             nullable: $this->nullable,
-            searchable: $this->searchable,
             orderBy: $this->orderBy,
             orderDir: $this->orderDir,
             label: $this->label,
             help: $this->help,
             placeholder: $this->placeholder,
+            limit: $this->limit,
+            searchable: $this->searchable,
+            minInputLength: $this->minInputLength,
             required: $this->required,
             readonly: $this->disabled,
-            minInputLength: $this->minInputLength,
             key: $this->key,
             filters: $this->filters,
             createNewModel: $this->createNewModel,
             createNewField: $this->createNewField,
+            editModel: $this->editModel,
             customView: $this->customView,
             fillFields: $this->fillFields
         );

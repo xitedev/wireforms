@@ -5,7 +5,6 @@ namespace Xite\Wireforms\FormFields;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Xite\Wireforms\Components\Fields\NestedSetSelect;
 use Xite\Wireforms\Components\Fields\WireSelect;
 use Xite\Wireforms\Contracts\FieldContract;
 use Xite\Wireforms\Traits\Authorizable;
@@ -19,7 +18,6 @@ class WireSelectField extends FormField
     protected bool $searchable = false;
     protected string $orderDir = 'asc';
     protected ?string $orderBy = null;
-    protected bool $nestedSet = false;
     protected ?string $createNewModel = null;
     protected ?string $createNewField = null;
     protected ?string $editModel = null;
@@ -103,13 +101,6 @@ class WireSelectField extends FormField
         return $this;
     }
 
-    public function nestedSet(): self
-    {
-        $this->nestedSet = true;
-
-        return $this;
-    }
-
     public function limit(int $limit): self
     {
         $this->limit = $limit;
@@ -148,11 +139,7 @@ class WireSelectField extends FormField
 
     protected function render(): FieldContract
     {
-        $class = ($this->nestedSet)
-            ? NestedSetSelect::class
-            : WireSelect::class;
-
-        return $class::make(
+        return WireSelect::make(
             name: $this->getNameOrWireModel(),
             value: $this->value,
             model: $this->model,

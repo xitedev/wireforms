@@ -30,7 +30,7 @@
         <input type="text"
                name="{{ $name }}"
                id="{{ $id }}"
-               x-datetime
+               x-time
                x-model.debounce.1s="value"
                x-ref="input"
                @if($placeholder)
@@ -43,9 +43,6 @@
                     'pr-7' => $allowClear && !$disabled,
                     $innerClass
                ])
-               @if($time) data-time="1" @endif
-               data-mode="{{ $mode }}"
-               data-format="{{ $time ? $timeFormat : $format }}"
                @if($required) required="required" @endif
                @disabled($disabled)
                {{ $attributes->whereStartsWith(['wire:change', 'x-']) }}

@@ -4,7 +4,7 @@
      'listItems'
 ])
 
-<div class="relative flex-1 w-full" x-data="{ open: @entangle('isOpen').live }">
+<div class="relative flex-1 w-full" x-data="{ open: @entangle('isOpen') }">
     <button type="button"
             aria-haspopup="listbox"
             :aria-expanded="open ? 'true' : 'false'"

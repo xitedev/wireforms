@@ -23,6 +23,7 @@ class WireformsServiceProvider extends PackageServiceProvider
     {
         $this->loadViewComponentsAs('wireforms', [
             \Xite\Wireforms\Components\Fields\Text::class,
+            \Xite\Wireforms\Components\Fields\Number::class,
             \Xite\Wireforms\Components\Fields\Textarea::class,
             \Xite\Wireforms\Components\Fields\Select::class,
             \Xite\Wireforms\Components\Fields\WireSelect::class,

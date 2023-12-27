@@ -118,7 +118,7 @@ abstract class Form extends ModalComponent
                     ['fillParent.' . $this->parentModal, [$this->model->getKey()]],
                 ]);
             } else {
-                $this->closeModalWithEvents(['$refresh']);
+                $this->closeModalWithEvents(['refreshTable']);
             }
         } catch (ValidationException $exception) {
             throw $exception;
