@@ -103,7 +103,7 @@
             @endif
 
             <span class="py-2 text-gray-300 w-full block text-center text-base leading-6 sm:text-sm sm:leading-5"
-                  wire:loading.delay.shorter
+                  wire:loading
                   style="display: none;"
             >
                 @lang('wireforms::form.loading')
