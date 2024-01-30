@@ -75,8 +75,6 @@ class OptionsMultiSelect extends BaseSelect
             $this->values[] = $value;
         }
 
-        ray($this->values);
-
         if ($trigger) {
             $this->dispatch(
                 event: $this->emitUp,
