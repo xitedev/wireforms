@@ -26,6 +26,7 @@ class WireformsServiceProvider extends PackageServiceProvider
             \Xite\Wireforms\Components\Fields\Number::class,
             \Xite\Wireforms\Components\Fields\Textarea::class,
             \Xite\Wireforms\Components\Fields\Select::class,
+            \Xite\Wireforms\Components\Fields\MultiSelect::class,
             \Xite\Wireforms\Components\Fields\WireSelect::class,
             \Xite\Wireforms\Components\Fields\NestedSetSelect::class,
             \Xite\Wireforms\Components\Fields\WireMultiSelect::class,
@@ -54,6 +55,11 @@ class WireformsServiceProvider extends PackageServiceProvider
         Livewire::component(
             'wireforms.livewire.options-select',
             \Xite\Wireforms\Livewire\OptionsSelect::class
+        );
+
+        Livewire::component(
+            'wireforms.livewire.options-multi-select',
+            \Xite\Wireforms\Livewire\OptionsMultiSelect::class
         );
     }
 }

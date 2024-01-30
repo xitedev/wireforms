@@ -10,9 +10,10 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Xite\Searchable\Filters\SearchFilter;
 
-class OptionsSelect extends BaseSelect
+class OptionsMultiSelect extends BaseSelect
 {
     public ?array $options = [];
+    public ?array $values = [];
 
     public function mount(
         string $name,
@@ -26,6 +27,7 @@ class OptionsSelect extends BaseSelect
         ?string $viewName = null,
         ?string $emitUp = null,
         ?array $options = [],
+        ?array $values = [],
     ): void {
         $this->name = $name;
         $this->required = $required;
@@ -38,6 +40,7 @@ class OptionsSelect extends BaseSelect
         $this->emitUp = $emitUp;
         $this->viewName = $viewName;
         $this->options = $options;
+        $this->values = $values;
     }
 
     protected function getListeners(): array
@@ -49,12 +52,12 @@ class OptionsSelect extends BaseSelect
 
     public function getSelectedValueProperty(): ?string
     {
-        return $this->value;
+        return implode(',', $this->values ?? []);
     }
 
-    public function getSelectedTitleProperty(): ?string
+    public function getSelectedValuesProperty(): array
     {
-        return $this->options[$this->value] ?? null;
+        return array_intersect_key($this->options, array_flip($this->values ?? []));
     }
 
     #[Computed]
@@ -66,30 +69,28 @@ class OptionsSelect extends BaseSelect
     #[On('setSelected')]
     public function setSelected($value, ?bool $trigger = true): void
     {
-        $this->isOpen = false;
-
-        if ($this->value === $value) {
-            return;
+        if (in_array($value, $this->values, true)) {
+            $this->values = array_diff($this->values, [$value]);
+        } else {
+            $this->values[] = $value;
         }
-
-        $this->value = $value;
 
         if ($trigger) {
             $this->dispatch(
                 event: $this->emitUp,
                 key: $this->name,
-                value: $this->value
+                value: implode(',', $this->values)
             );
         }
     }
 
     public function isCurrent(string $key): bool
     {
-        return $key === $this->value;
+        return in_array($key, $this->values);
     }
 
     public function render(): View
     {
-        return view($this->viewName ?? 'wireforms::livewire.options-select');
+        return view($this->viewName ?? 'wireforms::livewire.options-multi-select');
     }
 }

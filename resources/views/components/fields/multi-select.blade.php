@@ -11,7 +11,7 @@
     <div class="flex items-center"
         {{ $attributes->whereStartsWith(['x-']) }}
     >
-        <livewire:wireforms.livewire.options-select
+        <livewire:wireforms.livewire.options-multi-select
             :name="$id"
             :required="$required"
             :placeholder="$placeholder"
@@ -19,7 +19,7 @@
             :limit="$limit"
             :min-input-length="$minInputLength"
             :nullable="$nullable"
-            :value="$value"
+            :values="$value"
             :emit-up="$emitUp"
             :key="$key ?? $id"
             :options="$options"
