@@ -8,7 +8,7 @@
     </div>
 
     <div class="p-3">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-6">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-6 items-center">
             @foreach($fields as $field)
                 {!! $field !!}
             @endforeach

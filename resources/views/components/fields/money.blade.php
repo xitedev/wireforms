@@ -23,7 +23,7 @@
             <input type="number"
                    name="{{ $name }}"
                    id="{{ $id }}"
-                   x-model.number="value.amount"
+                   x-model="value.amount"
                    @if($placeholder)
                        placeholder="{{ $placeholder }}"
                    @endif
