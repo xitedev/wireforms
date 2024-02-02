@@ -108,10 +108,13 @@ abstract class Form extends ModalComponent
     {
         try {
             $this->beforeSave();
+            $this->callTraitHook('beforeSave');
 
             $this->performSave();
+            $this->callTraitHook('performSave');
 
             $this->afterSave();
+            $this->callTraitHook('afterSave');
 
             if (! is_null($this->parentModal)) {
                 $this->closeModalWithEvents([
@@ -135,6 +138,17 @@ abstract class Form extends ModalComponent
         ])
             ->filter()
             ->implode(' #');
+    }
+
+    private function callTraitHook(string $name, ?array $params = []): void
+    {
+        foreach (class_uses_recursive($this) as $trait) {
+            $method = $name.class_basename($trait);
+
+            if (method_exists($this, $method)) {
+                $this->$method(...$params);
+            }
+        }
     }
 
     public function render(): View
