@@ -22,6 +22,14 @@ trait Authorizable
         return $this;
     }
 
+    public function canSeeWhen(callable $condition): self
+    {
+        $this->canRender = call_user_func($condition);
+
+        return $this;
+    }
+
+
     private function authorizeModel(string $ability, Model|string $model): bool
     {
         try {
