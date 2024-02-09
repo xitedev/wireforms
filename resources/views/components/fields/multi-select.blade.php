@@ -23,6 +23,7 @@
             :emit-up="$emitUp"
             :key="$key ?? $id"
             :options="$options"
+            :searchable="$searchable"
         />
     </div>
 </x-wireforms::fields>

@@ -22,7 +22,7 @@ class OptionsSelect extends BaseSelect
         bool $readonly = false,
         ?int $minInputLength = null,
         ?int $limit = null,
-        bool $searchable = false,
+        bool $searchable = true,
         ?string $viewName = null,
         ?string $emitUp = null,
         ?array $options = [],
@@ -60,7 +60,13 @@ class OptionsSelect extends BaseSelect
     #[Computed]
     public function getResults(): Collection
     {
-        return collect($this->options);
+        return collect($this->options)
+            ->when(
+                $this->searchable && $this->search,
+                fn ($results) => $results->filter(
+                    fn ($value) => str($value)->lower()->contains(str($this->search)->lower())
+                )
+            );
     }
 
     #[On('setSelected')]

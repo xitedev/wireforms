@@ -9,6 +9,7 @@ class SelectField extends FormField
 {
     protected array $options = [];
     protected bool $nullable = false;
+    protected bool $searchable = false;
 
     public function options(array $options): self
     {
@@ -20,6 +21,13 @@ class SelectField extends FormField
     public function nullable(): self
     {
         $this->nullable = true;
+
+        return $this;
+    }
+
+    public function searchable(): self
+    {
+        $this->searchable = true;
 
         return $this;
     }
@@ -36,7 +44,8 @@ class SelectField extends FormField
             key: $this->key,
             placeholder: $this->placeholder,
             required: $this->required,
-            disabled: $this->disabled
+            disabled: $this->disabled,
+            searchable: $this->searchable
         );
     }
 }

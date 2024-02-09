@@ -23,6 +23,7 @@ class MultiSelect extends Field
         public ?string $emitUp = null,
         public array $options = [],
         public bool $nullable = false,
+        public bool $searchable = false
     ) {
         parent::__construct(
             $name,

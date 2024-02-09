@@ -20,6 +20,7 @@
             :min-input-length="$minInputLength"
             :nullable="$nullable"
             :value="$value"
+            :searchable="$searchable"
             :emit-up="$emitUp"
             :key="$key ?? $id"
             :options="$options"

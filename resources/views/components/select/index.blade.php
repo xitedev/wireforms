@@ -65,7 +65,7 @@
         @endisset
     </button>
 
-    @if(!$this->readonly)
+    @if(! $this->readonly)
         <div @class([
             "absolute w-full bg-white border border-primary-300 border-t-0 rounded-b-sm -mt-px z-20 transition ease-in-out duration-150",
             'min-h-[80px]' => $this->searchable,
@@ -87,7 +87,7 @@
                            class="block flex-1 p-1 text-sm text-gray-700 bg-primary-50/25 outline-none"
                            wire:model.live.debounce.1s="search"
                            placeholder="@lang('wireforms::form.search')"
-                           autocomplete="false"
+                           autocomplete="off"
                            autofocus
                     >
                     <div class="flex items-center pointer-events-none"
