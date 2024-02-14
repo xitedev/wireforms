@@ -12,17 +12,20 @@
             @disabled($disabled)
         >
 
-        @if($label || $help)
+        @if($label)
             <span id="toggleLabel">
                 <span class="block text-sm text-gray-600">{{ $label }}</span>
-                @isset($help)
-                    <span class="mt-1 text-xs text-gray-500">{{ $help }}</span>
-                @endisset
             </span>
         @endif
     </div>
 
+    @isset($help)
+        <span class="mt-1 text-xs text-gray-500">{{ $help }}</span>
+    @endisset
+
     @error($id)
-    <p class="mt-1 text-xs text-red-600" id="{{ $id }}-error">{{ \Illuminate\Support\Str::of($message)->replace($id, '') }}</p>
+        <p class="mt-1 text-xs text-red-600" id="{{ $id }}-error">
+            {{ \Illuminate\Support\Str::of($message)->replace($id, '') }}
+        </p>
     @enderror
 </fieldset>
