@@ -80,7 +80,7 @@
         >
             @if($this->searchable)
                 <div class="flex items-center justify-between m-1 pl-1 pr-2 border border-primary-100 shadow-sm shadow-primary-100/50 bg-primary-50/50">
-                    <input id="search"
+                    <input id="search-{{ $this->getId() }}"
                            type="text"
                            name="search"
                            x-ref="search"
