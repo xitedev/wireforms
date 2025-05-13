@@ -22,7 +22,7 @@
         "spatie/laravel-package-tools": "^1.16",
         "spatie/once": "^3.1",
         "wire-elements/modal": "^2.0",
-        "xitedev/searchable": "^3.0"
+        "xitedev/searchable": "^3.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
